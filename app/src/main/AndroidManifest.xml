@@ -3,7 +3,9 @@
     package="com.example.user.clientapp">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:name=".GetApp"
@@ -23,7 +25,9 @@
             android:name=".ReaderQR"
             android:label="@string/title_activity_reader_qr"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".VoiceRecognitionActivity"></activity>
+        <activity
+            android:name=".VoiceRecognitionActivity">
+        </activity>
     </application>
 
 </manifest>
