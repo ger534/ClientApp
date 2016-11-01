@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -23,15 +26,9 @@ import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity{
-    String pNickname;
+
     String pIP;
     int pPort;
-    //final Connection connection;
-    //static Connection connection;
-    GetApp mApplication;
-    Connection conn;
-
-
 
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
@@ -46,13 +43,29 @@ public class MainActivity extends AppCompatActivity{
         volley = VolleyS.getInstance(this.getApplicationContext());
         fRequestQueue = volley.getRequestQueue();
 
-        makeRequest(pIP);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
+        String[] valores = {"Bronce", "Oro", "Platino"};
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
+            {
+                Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                // vacio
+
+            }
+        });
 
         findViewById(R.id.Login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText name = (EditText)findViewById(R.id.TextName);
+
                 EditText ip = (EditText) findViewById(R.id.TextIP);
                 EditText port = (EditText) findViewById(R.id.TextPort);
 
@@ -63,23 +76,21 @@ public class MainActivity extends AppCompatActivity{
                     //toast11.show();
                 }else{
 
-                    pNickname = name.getText().toString();
+
                     pIP = ip.getText().toString();
                     pPort = Integer.parseInt(port.getText().toString());
-                    mApplication = (GetApp) getApplicationContext();
-                    mApplication.setConn(pNickname, pIP, pPort);
-                    conn = ((GetApp) getApplicationContext()).getConn();
+
+
                 }
 
-                if(pPort!=0 && !pIP.equals("")&& !pNickname.equals("") /*&&conn!=null*/ ){
-                    //Toast toast1 =Toast.makeText(MainActivity.this, Boolean.toString(conn.socket.isConnected()), Toast.LENGTH_LONG);
-                    //toast1.show();
-
-                    //makeRequest(pNickname);
+                if(pPort!=0 && !pIP.equals("")){
 
 
+                    makeRequest(pIP);
+
+
+                    //onResume();
                     Intent intent = new Intent(MainActivity.this, ReaderQR.class);
-                    intent.putExtra("variable_Nickname", pNickname);
                     startActivity(intent);
                 }else{
                     Toast toast =Toast.makeText(MainActivity.this, "Intente de nuevo", Toast.LENGTH_LONG);
@@ -119,10 +130,6 @@ public class MainActivity extends AppCompatActivity{
     private void makeRequest(String IP){
         //String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=39.476245,-0.349448&sensor=true";
         //String url = "http://"+IP+"/Rest/chef";
-        //String url = "http://172.26.99.28:9080/Rest/chef";
-        //String url = "http://192.168.100.11:9080/Rest/chef";
-        //String url = "http://192.168.100.1:9080/Rest/chef";
-
         String url = "http://192.168.100.8:9080/RestChef/chef";
 
 

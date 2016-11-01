@@ -28,12 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'com.android.support:design:23.4.0'
-    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-    compile files('libs/jersey-client.jar')
-    testCompile 'org.glassfish.jersey.core:jersey-common:2.22.2'
-    testCompile 'org.glassfish.hk2:hk2-locator:2.3.0'
-    testCompile 'org.glassfish.jersey.core:jersey-common:2.22.2'
-    //testCompile 'org.glassfish.jersey.multipart:jersey-common:2.22.2'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
     compile project(':volley')
     testCompile 'junit:junit:4.12'
     apply plugin: 'com.android.application'
